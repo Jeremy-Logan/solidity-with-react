@@ -3,8 +3,9 @@ pragma solidity >=0.4.22 <0.9.0;
 
 import "./Owned.sol";
 import "./Logger.sol";
+import "./IFaucet.sol";
 
-contract Faucet is Owned, Logger {
+contract Faucet is Owned, Logger, IFaucet {
     uint256 public numOfFunders;
 
     mapping(address => bool) private funders;
@@ -28,7 +29,7 @@ contract Faucet is Owned, Logger {
         return "Hello World";
     }
 
-    function addFunds() external payable {
+    function addFunds() external override payable {
         address funder = msg.sender;
 
         if (!funders[funder]) {
@@ -46,7 +47,7 @@ contract Faucet is Owned, Logger {
         
     }
 
-    function withdraw(uint256 withdrawAmount) external limitWithdraw(withdrawAmount) {
+    function withdraw(uint256 withdrawAmount) override external limitWithdraw(withdrawAmount) {
         payable(msg.sender).transfer(withdrawAmount);
     }
 

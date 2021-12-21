@@ -1,5 +1,6 @@
+import 'tailwindcss/tailwind.css'
 
-
+import web3
 
 function App() {
   return (
